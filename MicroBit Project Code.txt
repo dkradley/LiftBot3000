@@ -1,0 +1,34 @@
+// this function allows the Microbit to interprite received radio signals and convert 
+//them into working commands sent to motors, and a LED light strip
+radio.onReceivedNumber(function (receivedNumber) {
+    if (receivedNumber == 0) {
+        DCMotor3.motorSpeedDirection(100, DC_Motor3.MotorDirection.Forward)
+        strip.showColor(neopixel.colors(NeoPixelColors.Green))
+    }
+    if (receivedNumber == 1) {
+        DCMotor3.motorSpeedDirection(100, DC_Motor3.MotorDirection.Reverse)
+        strip.showColor(neopixel.colors(NeoPixelColors.Indigo))
+    }
+    if (receivedNumber == 2) {
+        DCMotor3.motorSpeedDirection(0, DC_Motor3.MotorDirection.Forward)
+        strip.showRainbow(1, 360)
+    }
+})
+// this lets the second MicroBit device function as a remote, sending radio waves corrosponding to
+//the pressed button.
+input.onButtonPressed(Button.A, function () {
+    radio.sendNumber(0)
+})
+input.onButtonPressed(Button.AB, function () {
+    radio.sendNumber(2)
+})
+input.onButtonPressed(Button.B, function () {
+    radio.sendNumber(1)
+})
+// this code lets the microbit set channels and pins for devices. 
+let strip: neopixel.Strip = null
+let DCMotor3: DC_Motor3.DCMotor3 = null
+radio.setGroup(255)
+DCMotor3 = DC_Motor3.createDCMotor3(BoardID.zero, ClickID.A)
+strip = neopixel.create(DigitalPin.P0, 48, NeoPixelMode.RGB)
+strip.showRainbow(1, 360)
