@@ -1,6 +1,6 @@
 LiftBot3000
 Developed by Dominic Radley & Jonah Taylor
-Protected By Creative Commons
+Protected By Creative Commons CC0 1.0
 
 
 
